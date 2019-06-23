@@ -30,7 +30,6 @@
    (deal (rest cards))))
 
 (defn -main
-  "Prints out the cards."
   []
   (println (shuffled-cards))
   (deal))

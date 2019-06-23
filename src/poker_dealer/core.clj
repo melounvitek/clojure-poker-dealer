@@ -5,7 +5,7 @@
 (def card-colors ["♠"	"♥"	"♦"	"♣"])
 
 (defn color-values
-  "Returns all cards for a color."
+  "Returns all cards for a given color."
   [color]
   (map #(str % color) card-values))
 
@@ -19,7 +19,17 @@
   ([] (shuffled-cards (all-cards)))
   ([cards] (shuffle cards)))
 
+(def memoized-cards (#(memoize shuffled-cards)))
+
+(defn deal
+  ([] (deal (memoized-cards)))
+  ([cards]
+   (println (first cards))
+   (read-line)
+   (deal (rest cards))))
+
 (defn -main
   "Deals the cards."
   []
-  (println (shuffled-cards)))
+  (println (memoized-cards))
+  (deal))

@@ -14,7 +14,12 @@
   []
   (flatten (map color-values card-colors)))
 
+(defn shuffled-cards
+  "Shuffle cards."
+  ([] (shuffled-cards (all-cards)))
+  ([cards] (shuffle cards)))
+
 (defn -main
   "Deals the cards."
   []
-  (println (all-cards)))
+  (println (shuffled-cards)))

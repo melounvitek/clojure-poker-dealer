@@ -1,35 +1,36 @@
 (ns poker-dealer.core
   (:gen-class))
 
-(def card-values (concat (range 2 11) ["J" "Q" "K" "A"]))
-(def card-colors ["♠"	"♥"	"♦"	"♣"])
 
-(defn color-values
-  "Returns all cards for a given color."
-  [color]
-  (map #(str % color) card-values))
-
-(defn all-cards
-  "Returns all possible cards."
+(defn cards
+  "All possible cards in deck."
   []
-  (flatten (map color-values card-colors)))
+  (let [denominations (concat (range 2 11) ["J" "Q" "K" "A"])
+        colors ["♠"	"♥"	"♦"	"♣"]
+        colors-denominations-mapping (fn [color] (map #(cons {:denomination % :color color} {}) denominations))]
 
-(defn shuffled-cards
-  "Shuffle cards."
-  ([] (shuffled-cards (all-cards)))
+    (flatten (map colors-denominations-mapping colors))))
+
+(defn shuffle-cards
+  "Return shuffled cards."
+  ([] (shuffle-cards (cards)))
   ([cards] (shuffle cards)))
 
-(def memoized-cards (#(memoize shuffled-cards)))
+(def shuffled-cards (#(memoize shuffle-cards)))
+
+(defn nice-print
+  [card]
+  (println (str (:denomination card) (:color card))))
 
 (defn deal
-  ([] (deal (memoized-cards)))
+  ([] (deal (shuffled-cards)))
   ([cards]
-   (println (first cards))
+   (nice-print (first cards))
    (read-line)
    (deal (rest cards))))
 
 (defn -main
-  "Deals the cards."
+  "Prints out the cards."
   []
-  (println (memoized-cards))
+  (println (shuffled-cards))
   (deal))

@@ -7,7 +7,7 @@
   []
   (let [denominations (concat (range 2 11) ["J" "Q" "K" "A"])
         colors ["♠"	"♥"	"♦"	"♣"]
-        colors-denominations-mapping (fn [color] (map #(cons {:denomination % :color color} {}) denominations))]
+        colors-denominations-mapping (fn [color] (map (fn [denomination] {:denomination denomination :color color}) denominations))]
 
     (flatten (map colors-denominations-mapping colors))))
 

@@ -1,15 +1,19 @@
 (ns poker-dealer.core
   (:gen-class))
 
+(def card-colors {"spade" "♠", "heart" "♥",	"diamond" "♦",	"club" "♣"})
+
+(defn colors-denominations-mapping
+  [color denominations]
+  (map (fn [denomination] {:denomination denomination :color color}) denominations))
 
 (defn cards
   "All possible cards in deck."
   []
   (let [denominations (concat (range 2 11) ["J" "Q" "K" "A"])
-        colors ["♠"	"♥"	"♦"	"♣"]
-        colors-denominations-mapping (fn [color] (map (fn [denomination] {:denomination denomination :color color}) denominations))]
+        colors (keys card-colors)]
 
-    (flatten (map colors-denominations-mapping colors))))
+    (flatten (map #(colors-denominations-mapping % denominations) colors))))
 
 (defn shuffle-cards
   "Return shuffled cards."
@@ -18,14 +22,14 @@
 
 (def shuffled-cards (#(memoize shuffle-cards)))
 
-(defn nice-print
+(defn nice-card-print
   [card]
-  (println (str (:denomination card) (:color card))))
+  (println (str (:denomination card) (get card-colors (:color card)))))
 
 (defn deal
   ([] (deal (shuffled-cards)))
   ([cards]
-   (nice-print (first cards))
+   (nice-card-print (first cards))
    (read-line)
    (deal (rest cards))))
 

@@ -2,7 +2,7 @@
   (:gen-class))
 
 (def card-colors {"spade" "♠", "heart" "♥",	"diamond" "♦",	"club" "♣"})
-(def card-denominations (concat (range 2 11) ["J" "Q" "K" "A"]))
+(def card-denominations (concat (range 2 11) '("J" "Q" "K" "A")))
 
 (defn cards-for-color
   "All cards / denominations for a color."
@@ -25,7 +25,9 @@
 
 (defn nice-card-print
   [card]
-  (println (str (:denomination card) (get card-colors (:color card)))))
+  (let [denomination (:denomination card)
+        color (get card-colors (:color card))]
+    (println (str denomination color))))
 
 (defn deal
   ([] (deal (shuffled-cards)))

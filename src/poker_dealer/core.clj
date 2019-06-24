@@ -8,7 +8,7 @@
   "All cards / denominations for a color."
   ([color] (cards-for-color color card-denominations))
   ([color denominations]
-   (map (fn [denomination] {:denomination denomination :color color}) denominations)))
+   (map #(do {:denomination % :color color}) denominations)))
 
 (defn all-cards
   "All possible cards in deck."

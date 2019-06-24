@@ -24,6 +24,7 @@
 (def shuffled-cards (#(memoize shuffle-cards)))
 
 (defn nice-card-print
+  "Prints string with card denomination and color symbol."
   [card]
   (let [denomination (:denomination card)
         color (get card-colors (:color card))]

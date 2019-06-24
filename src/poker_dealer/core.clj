@@ -2,22 +2,23 @@
   (:gen-class))
 
 (def card-colors {"spade" "♠", "heart" "♥",	"diamond" "♦",	"club" "♣"})
+(def card-denominations (concat (range 2 11) ["J" "Q" "K" "A"]))
 
-(defn colors-denominations-mapping
-  [color denominations]
-  (map (fn [denomination] {:denomination denomination :color color}) denominations))
+(defn cards-for-color
+  "All cards / denominations for a color."
+  ([color] (cards-for-color color card-denominations))
+  ([color denominations]
+   (map (fn [denomination] {:denomination denomination :color color}) denominations)))
 
-(defn cards
+(defn all-cards
   "All possible cards in deck."
-  []
-  (let [denominations (concat (range 2 11) ["J" "Q" "K" "A"])
-        colors (keys card-colors)]
-
-    (flatten (map #(colors-denominations-mapping % denominations) colors))))
+  ([] (all-cards (keys card-colors) card-denominations))
+  ([colors denominations]
+   (flatten (map cards-for-color colors))))
 
 (defn shuffle-cards
   "Return shuffled cards."
-  ([] (shuffle-cards (cards)))
+  ([] (shuffle-cards (all-cards)))
   ([cards] (shuffle cards)))
 
 (def shuffled-cards (#(memoize shuffle-cards)))

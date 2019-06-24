@@ -11,7 +11,7 @@
    (map #(do {:denomination % :color color}) denominations)))
 
 (defn all-cards
-  "All possible cards in deck."
+  "All cards in a deck."
   ([] (all-cards (keys card-colors) card-denominations))
   ([colors denominations]
    (flatten (map cards-for-color colors))))

@@ -34,6 +34,7 @@
   ([deck count] (drop count deck)))
 
 (defn prepare-player-hand
+  "Returns map with player ID and his cards."
   [player-index cards players-count]
   (let [card-1 (nth cards player-index)
         card-2 (nth cards (+ player-index players-count))]

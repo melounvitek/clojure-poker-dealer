@@ -1,7 +1,7 @@
 (ns poker-dealer.core
   (:gen-class))
 
-(def card-colors {"spade" "♠", "heart" "♥",	"diamond" "♦",	"club" "♣"})
+(def card-colors {"spade" "♠", "heart" "♥",	"diamond" "♦", "club" "♣"})
 (def card-denominations (concat (range 2 11) '("J" "Q" "K" "A")))
 
 (defn cards-for-color
@@ -33,26 +33,26 @@
   ([deck] (burn deck 1))
   ([deck count] (drop count deck)))
 
-(defn deal-to-player
+(defn prepare-player-hand
   [player-index cards players-count]
   (let [card-1 (nth cards player-index)
         card-2 (nth cards (+ player-index players-count))]
     {player-index (map nice-card-print [card-1 card-2])}))
 
-(defn deal-hands-to-players
+(defn deal-hands
   "Assigns cards to each player; returns a map with user hands and remaning cards in the deck."
   [players-count deck]
-  (let [players-hands (map #(deal-to-player % deck players-count) (range 0 players-count))
-        cards-after-deal (burn deck (* players-count 2))]
-    {:players-hands players-hands :remaining-cards (map nice-card-print cards-after-deal)}
+  (let [players-hands (map #(prepare-player-hand % deck players-count) (range 0 players-count))
+        deck (burn deck (* players-count 2))]
+    {:players-hands players-hands :deck deck}
   ))
 
 (defn deal
   ([] (deal (shuffle-cards)))
   ([deck]
    (println (map nice-card-print deck))
-   (let [state-after-initial-deal (deal-hands-to-players 3 (burn deck))]
-     (println state-after-initial-deal)
+   (let [state-after-hands-dealt (deal-hands 3 (burn deck))]
+     (println state-after-hands-dealt)
    )))
 
 (defn -main []

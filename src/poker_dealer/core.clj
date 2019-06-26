@@ -40,7 +40,7 @@
   ([players-count] (deal-hands players-count (-> (deck) shuffle burn)))
   ([players-count deck]
    (let [hands (map #(prepare-player-hand % deck players-count) (range 0 players-count))
-        deck (burn deck (* players-count 2))]
+         deck (burn deck (* players-count 2))]
      {:hands hands, :deck deck})))
 
 (defn deal-board
@@ -48,8 +48,8 @@
   [deck]
   (let [deck (burn deck)]
     (let [flop (take 3 deck)
-         turn (nth deck 4)
-         river (nth deck 6)]
+          turn (nth deck 4)
+          river (nth deck 6)]
       {:flop flop, :turn turn, :river river})))
 
 (defn -main []

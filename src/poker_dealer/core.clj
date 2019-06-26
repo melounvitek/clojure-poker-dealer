@@ -58,6 +58,7 @@
       {:flop flop, :turn turn, :river river})))
 
 (defn -main []
+  "Shuffles cards, assigns hands to players and deals board cards."
   (println "Insert players count: ")
   (let [{hands :hands, deck :deck} (deal-hands (Integer/parseInt (read-line)))]
     (println "\nPlayers hands: " hands)

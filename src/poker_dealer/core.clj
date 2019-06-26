@@ -37,7 +37,7 @@
 
 (defn deal-hands
   "Assigns cards to each player; returns a map with user hands and remaning cards in the deck."
-  ([players-count] (deal-hands players-count (burn (shuffle (deck)))))
+  ([players-count] (deal-hands players-count (-> (deck) shuffle burn)))
   ([players-count deck]
    (let [hands (map #(prepare-player-hand % deck players-count) (range 0 players-count))
         deck (burn deck (* players-count 2))]
@@ -55,7 +55,7 @@
 (defn -main []
   "Shuffles cards, assigns hands to players and deals board cards."
   (println "Insert players count: ")
-  (let [{hands :hands, deck :deck} (deal-hands (Integer/parseInt (read-line)))]
+  (let [{hands :hands, deck :deck} (-> (read-line) Integer/parseInt deal-hands)]
     (println "\nPlayers hands: " hands)
     (let [{flop :flop, turn :turn, river :river} (deal-board deck)]
       (println "\nFlop: " (clojure.string/join " " (map print-card flop)))

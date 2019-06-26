@@ -36,17 +36,17 @@
 
 (defn deal-hands-to-players
   "Assigns cards to each player; returns a map with user hands and remaning cards in the deck."
-  [players-count cards]
-  (let [players-hands (map #(deal-to-player % cards players-count) (range 0 players-count))
-        cards-after-deal (drop (* players-count 2) cards)]
+  [players-count deck]
+  (let [players-hands (map #(deal-to-player % deck players-count) (range 0 players-count))
+        cards-after-deal (drop (* players-count 2) deck)]
     {:players-hands players-hands :remaining-cards (map nice-card-print cards-after-deal)}
   ))
 
 (defn deal
   ([] (deal (shuffle-cards)))
-  ([cards]
-   (println (map nice-card-print cards))
-   (let [state-after-initial-deal (deal-hands-to-players 3 (drop 1 cards))]
+  ([deck]
+   (println (map nice-card-print deck))
+   (let [state-after-initial-deal (deal-hands-to-players 3 (drop 1 deck))]
      (println state-after-initial-deal)
    )))
 

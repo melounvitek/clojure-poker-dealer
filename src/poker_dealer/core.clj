@@ -11,7 +11,7 @@
    (map #(do {:denomination % :color color}) denominations)))
 
 (defn all-cards
-  "All cards in a deck."
+  "All cards in the deck."
   ([] (all-cards (keys card-colors) card-denominations))
   ([colors denominations]
    (flatten (map cards-for-color colors))))
@@ -34,18 +34,19 @@
         card-2 (nth cards (+ player-index players-count))]
     {player-index (map nice-card-print [card-1 card-2])}))
 
-(defn deal-to-players
+(defn deal-hands-to-players
+  "Assigns cards to each player; returns a map with user hands and remaning cards in the deck."
   [players-count cards]
   (let [players-hands (map #(deal-to-player % cards players-count) (range 0 players-count))
         cards-after-deal (drop (* players-count 2) cards)]
-    {:hands players-hands :cards (map nice-card-print cards-after-deal)}
+    {:players-hands players-hands :remaining-cards (map nice-card-print cards-after-deal)}
   ))
 
 (defn deal
   ([] (deal (shuffle-cards)))
   ([cards]
    (println (map nice-card-print cards))
-   (let [state-after-initial-deal (deal-to-players 3 (drop 1 cards))]
+   (let [state-after-initial-deal (deal-hands-to-players 3 (drop 1 cards))]
      (println state-after-initial-deal)
    )))
 

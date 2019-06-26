@@ -28,6 +28,11 @@
         color (get card-colors (:color card))]
     (str denomination color)))
 
+(defn burn
+  "Burns the card(s) and returns deck."
+  ([deck] (burn deck 1))
+  ([deck count] (drop count deck)))
+
 (defn deal-to-player
   [player-index cards players-count]
   (let [card-1 (nth cards player-index)
@@ -38,7 +43,7 @@
   "Assigns cards to each player; returns a map with user hands and remaning cards in the deck."
   [players-count deck]
   (let [players-hands (map #(deal-to-player % deck players-count) (range 0 players-count))
-        cards-after-deal (drop (* players-count 2) deck)]
+        cards-after-deal (burn deck (* players-count 2))]
     {:players-hands players-hands :remaining-cards (map nice-card-print cards-after-deal)}
   ))
 
@@ -46,7 +51,7 @@
   ([] (deal (shuffle-cards)))
   ([deck]
    (println (map nice-card-print deck))
-   (let [state-after-initial-deal (deal-hands-to-players 3 (drop 1 deck))]
+   (let [state-after-initial-deal (deal-hands-to-players 3 (burn deck))]
      (println state-after-initial-deal)
    )))
 

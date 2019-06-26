@@ -21,8 +21,6 @@
   ([] (shuffle-cards (all-cards)))
   ([cards] (shuffle cards)))
 
-(def shuffled-cards (#(memoize shuffle-cards)))
-
 (defn nice-card-print
   "Returns string with card denomination and color symbol."
   [card]
@@ -44,12 +42,12 @@
   ))
 
 (defn deal
-  ([] (deal (shuffled-cards)))
+  ([] (deal (shuffle-cards)))
   ([cards]
+   (println (map nice-card-print cards))
    (let [state-after-initial-deal (deal-to-players 3 (drop 1 cards))]
      (println state-after-initial-deal)
    )))
 
 (defn -main []
-  (println (map nice-card-print (shuffled-cards)))
   (deal))

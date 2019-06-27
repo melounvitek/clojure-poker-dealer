@@ -39,7 +39,8 @@
   "Assigns cards to each player; returns a map with user hands and remaning cards in the deck."
   ([players-count] (deal-hands players-count (-> (deck) shuffle burn)))
   ([players-count deck]
-   (let [hands (map #(prepare-player-hand % deck players-count) (range 0 players-count))
+   (let [hands (map #(prepare-player-hand % deck players-count)
+                    (range 0 players-count))
          deck (burn deck (* players-count 2))]
      {:hands hands, :deck deck})))
 

@@ -33,7 +33,7 @@
   [player-index deck players-count]
   (let [card-1 (nth deck player-index)
         card-2 (nth deck (+ player-index players-count))]
-    {:player-id player-index, :hand (map card-to-string [card-1 card-2])}))
+    {:player-id player-index, :hand [card-1 card-2]}))
 
 (defn deal-hands
   "Assigns cards to each player; returns a map with user hands and remaning cards in the deck."
@@ -56,7 +56,7 @@
   "Shuffles cards, assigns hands to players and deals board cards."
   (println "Insert players count: ")
   (let [{hands :hands, deck :deck} (-> (read-line) Integer/parseInt deal-hands)]
-    (println "\nPlayers hands: " hands)
+    (doseq [h hands] (println "Player" (+ 1 (:player-id h)) (map card-to-string (:hand h))))
     (let [{flop :flop, turn :turn, river :river} (deal-board deck)]
       (println "\nFlop: " (clojure.string/join " " (map card-to-string flop)))
       (println "Turn: " (card-to-string turn))

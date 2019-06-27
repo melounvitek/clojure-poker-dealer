@@ -64,5 +64,4 @@
      (let [{flop :flop, turn :turn, river :river} (deal-board deck)]
        (println "\nFlop: " (clojure.string/join " " (map card->string flop)))
        (println "Turn: " (card->string turn))
-       (println "River: " (card->string river))
-     ))))
+       (println "River: " (card->string river))))))

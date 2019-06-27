@@ -30,10 +30,10 @@
 
 (defn prepare-player-hand
   "Returns map with player ID and his cards."
-  [player-index cards players-count]
-  (let [card-1 (nth cards player-index)
-        card-2 (nth cards (+ player-index players-count))]
-    {:player-id player-index, :cards (map print-card [card-1 card-2])}))
+  [player-index deck players-count]
+  (let [card-1 (nth deck player-index)
+        card-2 (nth deck (+ player-index players-count))]
+    {:player-id player-index, :hand (map print-card [card-1 card-2])}))
 
 (defn deal-hands
   "Assigns cards to each player; returns a map with user hands and remaning cards in the deck."

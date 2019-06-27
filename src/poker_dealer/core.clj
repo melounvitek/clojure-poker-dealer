@@ -1,7 +1,7 @@
 (ns poker-dealer.core
   (:gen-class))
 
-(def card-colors {"spade" "♠", "heart" "♥",	"diamond" "♦", "club" "♣"})
+(def card-colors {:spade "♠", :heart "♥",	:diamond "♦", :club "♣"})
 (def card-denominations (concat (range 2 11) '("J" "Q" "K" "A")))
 
 (defn cards-for-color

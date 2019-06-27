@@ -23,6 +23,14 @@
         color (get card-colors (:color card))]
     (str denomination color)))
 
+(defn hand->string
+  "Return player 'name' and his hand."
+  [hand]
+  (apply str "Player "
+             (inc (:player-id hand))
+             ": "
+             (map card->string (:hand hand))))
+
 (defn burn
   "Burns the card(s) and returns deck."
   ([deck] (burn deck 1))
@@ -51,7 +59,7 @@
     (let [flop (take 3 deck)
           turn (nth deck 4)
           river (nth deck 6)]
-      {:flop flop, :turn turn, :river river})))
+      (flatten [flop turn river]))))
 
 (defn -main
   "Shuffles cards, assigns hands to players and deals board cards."
@@ -60,8 +68,6 @@
    (-main (read-line)))
   ([count]
    (let [{hands :hands, deck :deck} (-> count Integer/parseInt deal-hands)]
-     (doseq [h hands] (println "Player" (inc (:player-id h)) (map card->string (:hand h))))
-     (let [{flop :flop, turn :turn, river :river} (deal-board deck)]
-       (println "\nFlop: " (clojure.string/join " " (map card->string flop)))
-       (println "Turn: " (card->string turn))
-       (println "River: " (card->string river))))))
+     (println (map hand->string hands))
+     (println "\nBoard (flop, turn, river):\n"
+              (map card->string (deal-board deck))))))

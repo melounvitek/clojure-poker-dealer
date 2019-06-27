@@ -16,7 +16,7 @@
   ([colors denominations]
    (flatten (map cards-for-color colors))))
 
-(defn card-to-string
+(defn card->string
   "Returns string with card denomination and color symbol."
   [card]
   (let [denomination (:denomination card)
@@ -60,9 +60,9 @@
    (-main (read-line)))
   ([count]
    (let [{hands :hands, deck :deck} (-> count Integer/parseInt deal-hands)]
-     (doseq [h hands] (println "Player" (inc (:player-id h)) (map card-to-string (:hand h))))
+     (doseq [h hands] (println "Player" (inc (:player-id h)) (map card->string (:hand h))))
      (let [{flop :flop, turn :turn, river :river} (deal-board deck)]
-       (println "\nFlop: " (clojure.string/join " " (map card-to-string flop)))
-       (println "Turn: " (card-to-string turn))
-       (println "River: " (card-to-string river))
+       (println "\nFlop: " (clojure.string/join " " (map card->string flop)))
+       (println "Turn: " (card->string turn))
+       (println "River: " (card->string river))
      ))))

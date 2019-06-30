@@ -24,7 +24,7 @@
     (str denomination color)))
 
 (defn hand->string
-  "Return player 'name' and his hand."
+  "Returns player and his hand."
   [hand]
   (apply str "Player "
              (inc (:player-id hand))
@@ -44,7 +44,8 @@
     {:player-id player-index, :hand [card-1 card-2]}))
 
 (defn deal-hands
-  "Assigns cards to each player; returns a map with user hands and remaning cards in the deck."
+  "Assigns cards to each player; returns a map with user hands and remaning
+   cards in the deck."
   ([players-count] (deal-hands players-count (-> (deck) shuffle burn)))
   ([players-count deck]
    (let [hands (map #(prepare-player-hand % deck players-count)
@@ -53,7 +54,7 @@
      {:hands hands, :deck deck})))
 
 (defn deal-board
-  "Return flop, turn and river."
+  "Returns flop, turn and river."
   [deck]
   (let [deck (burn deck)]
     (let [flop (take 3 deck)
@@ -69,5 +70,4 @@
   ([count]
    (let [{hands :hands, deck :deck} (-> count Integer/parseInt deal-hands)]
      (println (map hand->string hands))
-     (println "\nBoard (flop, turn, river):\n"
-              (map card->string (deal-board deck))))))
+     (println (map card->string (deal-board deck))))))

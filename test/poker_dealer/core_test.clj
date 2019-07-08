@@ -3,6 +3,7 @@
             [poker-dealer.core :refer :all]))
 
 (def deck-cards-count 52)
+(def deck-colors-count 4)
 
 (deftest deck-test
   (let [deck (deck) colors (keys card-colors)]
@@ -10,7 +11,7 @@
       (testing "has correct cards count"
         (is (= deck-cards-count (count deck))))
       (testing "contains all the colors"
-        (is (= (count (set (map #(:color %) deck))) 4))))))
+        (is (= (count (set (map #(:color %) deck))) deck-colors-count))))))
 
 (deftest burn-test
   (let [deck (deck)]

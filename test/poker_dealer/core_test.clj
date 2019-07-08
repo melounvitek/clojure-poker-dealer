@@ -15,9 +15,9 @@
 (deftest burn-test
   (let [deck (deck)]
     (testing "Burn"
-      (testing "one card"
+      (testing "works with one argument (burns one card)"
         (is (= (burn deck) (rest deck))))
-      (testing "three cards"
+      (testing "works with two arguments (burns multiple cards)"
         (is (= (burn deck 3) (drop 3 deck)))))))
 
 (deftest deal-hands-test

@@ -3,6 +3,7 @@
 
 (def card-colors {:spade "♠", :heart "♥",	:diamond "♦", :club "♣"})
 (def card-denominations (concat (range 2 11) '("J" "Q" "K" "A")))
+(def hand->string-text "Player %d: %s")
 
 (defn cards-for-color
   "All cards / denominations for a color."
@@ -24,11 +25,10 @@
 
 (defn hand->string
   "Returns player and his hand."
-  [hand]
-  (apply str "Player "
-             (inc (:player-id hand))
-             ": "
-             (map card->string (:hand hand))))
+  [{:keys [player-id hand]}]
+  (format hand->string-text
+          (inc player-id)
+          (apply str (map card->string hand))))
 
 (defn burn
   "Burns the card(s) and returns deck."

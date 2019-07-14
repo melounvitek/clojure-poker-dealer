@@ -25,7 +25,7 @@
   (let [hand
         {:player-id 1
         :hand [{:denomination "A", :color :spade} {:denomination "K", :color :heart}]}]
-    (is (= (hand->string hand) "Player 2: A♠K♥"))))
+    (is (= (hand->string hand) (format hand->string-text 2 "A♠K♥")))))
 
 (deftest burn-test
   (let [deck (deck)]

@@ -7,3 +7,5 @@ a pack of cards, shuffles them, deals two cards to each player, and then it show
 board cards (flop, turn and river).
 
 All code is in here: https://github.com/melounvitek/clojure-poker-dealer/blob/master/src/poker_dealer/core.clj
+
+Tests: https://github.com/melounvitek/clojure-poker-dealer/blob/master/test/poker_dealer/core_test.clj

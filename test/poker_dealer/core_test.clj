@@ -57,8 +57,7 @@
     (testing "returns correct hands count for random players count"
       (let [players-count (rand-nth (range 1 10))]
         (testing (str "(players count: " players-count ")")
-          (is (= (count (:hands (deal-hands players-count)))
-                 players-count)))))))
+          (is (-> (deal-hands players-count) :hands count)))))))
 
 (deftest deal-board-test
   (is (= (deal-board simple-deck) [1 2 3 5 7])))

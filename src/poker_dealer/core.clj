@@ -14,7 +14,7 @@
   "All cards in the deck."
   ([] (deck (keys card-colors) card-denominations))
   ([colors denominations]
-   (flatten (map cards-for-color colors))))
+   (mapcat cards-for-color colors)))
 
 (defn card->string
   "Returns string with card denomination and color symbol."

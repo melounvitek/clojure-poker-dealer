@@ -30,9 +30,9 @@
 (deftest burn-test
   (let [deck (deck)]
     (testing "Burn"
-      (testing "works with one argument (burns one card)"
+      (testing "removes first card"
         (is (= (burn deck) (rest deck))))
-      (testing "works with two arguments (burns multiple cards)"
+      (testing "removes multiple cards"
         (is (= (burn deck 3) (drop 3 deck)))))))
 
 (deftest prepare-player-hand-test
@@ -54,13 +54,11 @@
            (- deck-cards-count (+ (* players-count 2) 1)))
           2
           5))
-    (testing "returns correct hands count"
-      (testing "for random players count"
-        (let [players-count (rand-nth (range 1 10))]
-          (testing (str "(players count: " players-count ")")
-            (is (= (count (:hands (deal-hands players-count)))
-                   players-count))))))))
+    (testing "returns correct hands count for random players count"
+      (let [players-count (rand-nth (range 1 10))]
+        (testing (str "(players count: " players-count ")")
+          (is (= (count (:hands (deal-hands players-count)))
+                 players-count)))))))
 
 (deftest deal-board-test
   (is (= (deal-board simple-deck) [1 2 3 5 7])))
-

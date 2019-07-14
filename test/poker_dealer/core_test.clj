@@ -7,12 +7,12 @@
 (def deck-colors-count 4)
 
 (deftest deck-test
-  (let [deck (deck) colors (keys card-colors)]
+  (let [colors (keys card-colors)]
     (testing "Deck"
       (testing "has correct cards count"
-        (is (= deck-cards-count (count deck))))
+        (is (= deck-cards-count (count (deck)))))
       (testing "contains all the colors"
-        (is (= (count (set (map #(:color %) deck))) deck-colors-count))))))
+        (is (= (count (set (map #(:color %) (deck)))) deck-colors-count))))))
 
 (deftest card->string-test
   (are [card string] (= (card->string card) string)

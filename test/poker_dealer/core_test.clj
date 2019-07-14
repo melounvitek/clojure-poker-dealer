@@ -14,6 +14,13 @@
       (testing "contains all the colors"
         (is (= (count (set (map #(:color %) deck))) deck-colors-count))))))
 
+(deftest card->string-test
+  (are [card string] (= (card->string card) string)
+  {:denomination "A", :color :spade} "A♠"
+  {:denomination "K", :color :heart} "K♥"
+  {:denomination "Q", :color :diamond} "Q♦"
+  {:denomination "J", :color :club} "J♣"))
+
 (deftest burn-test
   (let [deck (deck)]
     (testing "Burn"

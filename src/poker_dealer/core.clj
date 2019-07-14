@@ -28,7 +28,7 @@
   [{:keys [player-id hand]}]
   (format hand->string-text
           (inc player-id)
-          (apply str (map card->string hand))))
+          (clojure.string/join (map card->string hand))))
 
 (defn burn
   "Burns the card(s) and returns deck."

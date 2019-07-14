@@ -8,7 +8,7 @@
   "All cards / denominations for a color."
   ([color] (cards-for-color color card-denominations))
   ([color denominations]
-   (map #(do {:denomination %, :color color}) denominations)))
+   (map #(hash-map :denomination %, :color color) denominations)))
 
 (defn deck
   "All cards in the deck."
@@ -18,9 +18,8 @@
 
 (defn card->string
   "Returns string with card denomination and color symbol."
-  [card]
-  (let [denomination (:denomination card)
-        color (get card-colors (:color card))]
+  [{:keys [color denomination]}]
+  (let [color (get card-colors color)]
     (str denomination color)))
 
 (defn hand->string
@@ -56,11 +55,11 @@
 (defn deal-board
   "Returns flop, turn and river."
   [deck]
-  (let [deck (burn deck)]
-    (let [flop (take 3 deck)
-          turn (nth deck 4)
-          river (nth deck 6)]
-      (flatten [flop turn river]))))
+  (let [deck (burn deck)
+        flop (take 3 deck)
+        turn (nth deck 4)
+        river (nth deck 6)]
+    (flatten [flop turn river])))
 
 (defn -main
   "Shuffles cards, assigns hands to players and deals board cards."

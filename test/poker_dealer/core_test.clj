@@ -47,3 +47,6 @@
             (is (= (count (:hands (deal-hands players-count)))
                    players-count))))))))
 
+(deftest deal-board-test
+  (is (= (deal-board test-deck) [1 2 3 5 7])))
+

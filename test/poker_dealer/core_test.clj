@@ -12,7 +12,7 @@
       (testing "has correct cards count"
         (is (= deck-cards-count (count (deck)))))
       (testing "contains all the colors"
-        (is (= (count (set (map #(:color %) (deck)))) deck-colors-count))))))
+        (is (= (->> (deck) (map #(:color %)) set count) deck-colors-count))))))
 
 (deftest card->string-test
   (are [card string] (= (card->string card) string)

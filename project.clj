@@ -6,4 +6,5 @@
   :dependencies [[org.clojure/clojure "1.10.0"]]
   :main ^:skip-aot poker-dealer.core
   :target-path "target/%s"
+  :plugins [[lein-kibit "0.1.7"]]
   :profiles {:uberjar {:aot :all}})

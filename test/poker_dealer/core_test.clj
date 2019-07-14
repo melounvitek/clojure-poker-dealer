@@ -21,6 +21,17 @@
       (testing "works with two arguments (burns multiple cards)"
         (is (= (burn deck 3) (drop 3 deck)))))))
 
+(deftest prepare-player-hand-test
+  (let [test-deck [0 1 2 3 4 5 6 7 8 9 10]]
+    (are
+      [players-count player-index expected-cards]
+      (= expected-cards
+         (:hand (prepare-player-hand player-index test-deck players-count)))
+      2 0 [0 2]
+      2 1 [1 3]
+      4 1 [1 5]
+      4 3 [3 7])))
+
 (deftest deal-hands-test
   (testing "Deal hands"
     (testing "returns deck with correct cards count"

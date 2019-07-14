@@ -21,6 +21,12 @@
   {:denomination "Q", :color :diamond} "Q♦"
   {:denomination "J", :color :club} "J♣"))
 
+(deftest hand->string-test
+  (let [hand
+        {:player-id 1
+        :hand [{:denomination "A", :color :spade} {:denomination "K", :color :heart}]}]
+    (is (= (hand->string hand) "Player 2: A♠K♥"))))
+
 (deftest burn-test
   (let [deck (deck)]
     (testing "Burn"

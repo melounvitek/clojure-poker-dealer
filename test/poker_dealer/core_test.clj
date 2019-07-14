@@ -24,10 +24,11 @@
 (deftest deal-hands-test
   (testing "Deal hands"
     (testing "returns deck with correct cards count"
-      (testing "for 2 players"
-        (is (= (count (:deck (deal-hands 2))) (- deck-cards-count 5))))
-      (testing "for 5 players"
-        (is (= (count (:deck (deal-hands 5))) (- deck-cards-count 11)))))
+      (are
+        [players-count correct-cards-count]
+        (= (count (:deck (deal-hands players-count))) correct-cards-count)
+          2 (- deck-cards-count 5)
+          5 (- deck-cards-count 11)))
     (testing "returns correct hands count"
       (testing "for random players count"
         (let [players-count (rand-nth (range 1 10))]

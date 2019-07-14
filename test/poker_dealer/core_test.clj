@@ -4,7 +4,7 @@
 
 (def deck-cards-count 52)
 (def deck-colors-count 4)
-(def test-deck [0 1 2 3 4 5 6 7 8 9 10])
+(def testing-deck [0 1 2 3 4 5 6 7 8 9 10])
 
 (deftest deck-test
   (let [deck (deck) colors (keys card-colors)]
@@ -39,7 +39,7 @@
   (are
     [players-count player-index expected-cards]
     (= expected-cards
-       (:hand (prepare-player-hand player-index test-deck players-count)))
+       (:hand (prepare-player-hand player-index testing-deck players-count)))
       2 0 [0 2]
       2 1 [1 3]
       4 1 [1 5]
@@ -62,5 +62,5 @@
                    players-count))))))))
 
 (deftest deal-board-test
-  (is (= (deal-board test-deck) [1 2 3 5 7])))
+  (is (= (deal-board testing-deck) [1 2 3 5 7])))
 

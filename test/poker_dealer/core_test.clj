@@ -36,10 +36,11 @@
   (testing "Deal hands"
     (testing "returns deck with correct cards count"
       (are
-        [players-count correct-cards-count]
-        (= (count (:deck (deal-hands players-count))) correct-cards-count)
-          2 (- deck-cards-count 5)
-          5 (- deck-cards-count 11)))
+        [players-count]
+        (= (count (:deck (deal-hands players-count)))
+           (- deck-cards-count (+ (* players-count 2) 1)))
+        2
+        5))
     (testing "returns correct hands count"
       (testing "for random players count"
         (let [players-count (rand-nth (range 1 10))]

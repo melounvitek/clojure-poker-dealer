@@ -16,10 +16,10 @@
 
 (deftest card->string-test
   (are [card string] (= (card->string card) string)
-  {:denomination "A", :color :spade} "A♠"
-  {:denomination "K", :color :heart} "K♥"
-  {:denomination "Q", :color :diamond} "Q♦"
-  {:denomination "J", :color :club} "J♣"))
+    {:denomination "A", :color :spade} "A♠"
+    {:denomination "K", :color :heart} "K♥"
+    {:denomination "Q", :color :diamond} "Q♦"
+    {:denomination "J", :color :club} "J♣"))
 
 (deftest hand->string-test
   (let [hand
@@ -40,10 +40,10 @@
     [players-count player-index expected-cards]
     (= expected-cards
        (:hand (prepare-player-hand player-index test-deck players-count)))
-    2 0 [0 2]
-    2 1 [1 3]
-    4 1 [1 5]
-    4 3 [3 7]))
+      2 0 [0 2]
+      2 1 [1 3]
+      4 1 [1 5]
+      4 3 [3 7]))
 
 (deftest deal-hands-test
   (testing "Deal hands"
@@ -52,8 +52,8 @@
         [players-count]
         (= (count (:deck (deal-hands players-count)))
            (- deck-cards-count (+ (* players-count 2) 1)))
-        2
-        5))
+          2
+          5))
     (testing "returns correct hands count"
       (testing "for random players count"
         (let [players-count (rand-nth (range 1 10))]

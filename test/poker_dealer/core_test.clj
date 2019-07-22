@@ -2,9 +2,9 @@
   (:require [clojure.test :refer :all]
             [poker-dealer.core :refer :all]))
 
-(def simple-deck (range 52))
-(def deck-cards-count (count simple-deck))
+(def deck-cards-count 52)
 (def deck-colors-count 4)
+(def simple-deck (range deck-cards-count))
 
 (deftest deck-test
   (let [colors (keys card-colors)]
